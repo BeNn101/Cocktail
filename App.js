@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { Button,Image, View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
+import { ImageBackground,Button,Image, View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -21,23 +21,24 @@ function HomeScreen() {
 
   const renderCocktail = ({ item }) => (
     <View style={styles.card}>
-      <Image
-        style={styles.image}
-        source={{ uri: `https://www.thecocktaildb.com/images/media/drink/${item.strDrinkThumb}/preview` }}
-      />
       <Text>{item.strDrink}</Text>
     </View>
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        data={cocktails}
-        renderItem={renderCocktail}
-        keyExtractor={item => item.idDrink}
-        numColumns={2}
-      />
-    </SafeAreaView>
+    <ImageBackground
+      source={require('./img/back.jpg')} 
+      style={styles.backgroundImage}
+    >
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={cocktails}
+          renderItem={renderCocktail}
+          keyExtractor={item => item.idDrink}
+          numColumns={2}
+        />
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
@@ -73,14 +74,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  cocktailName: {
-    textAlign: 'center',
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
 });
 
